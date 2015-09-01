@@ -1,2 +1,2 @@
 #!/bin/bash -ex
-rm -fr ./.tmp$$
+rm -fr ./tempBuild
