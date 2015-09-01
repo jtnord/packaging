@@ -4,7 +4,7 @@
 bin=$(dirname $0)
 encodedv=$($bin/encode-version.rb $VERSION)
 
-D=./.tmp$$   # temporary directory (in workspace so we can stash it)
+D=./tempBuild   # temporary directory (in workspace so we can stash it)
 mkdir -p $D
 
 # replace variables in the wxs file
