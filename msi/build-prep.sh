@@ -16,4 +16,4 @@ EOF
 cp ${PKCS12_FILE} $D/key.pkcs12
 cp ${PKCS12_PASSWORD_FILE} $D/key.password
 
-cp -t $D/ $bin/FindJava.java $bin/build.sh $bin/jenkins.exe.config $bin/bootstrapper.xml 
+cp -t $D/ $bin/FindJava.java $bin/build.bat $bin/jenkins.exe.config $bin/bootstrapper.xml 
