@@ -15,16 +15,6 @@ exit /B 1
 
 :OK
 
-REM MOVE THIS TO build-prep.  we only need to do the actual windows bits here...
-rmdir /s tmp
-mkdir tmp
-
-unzip -p "$war" 'WEB-INF/lib/jenkins-core-*.jar' > tmp/core.jar
-unzip -p tmp/core.jar windows-service/jenkins.exe > tmp/jenkins.exe
-unzip -p tmp/core.jar windows-service/jenkins.xml | sed -e "s|\bjenkins\b|${ARTIFACTNAME}|" | sed -e "s|8080|${PORT}|" > tmp/jenkins.xm_
-# replace executable name to the bundled JRE
-sed -e 's|executable.*|executable>%BASE%\\jre\\bin\\java</executable>|' < tmp/jenkins.xm_ > tmp/jenkins.xml
-
 REM capture JRE
 javac FindJava.java
 set JREDIR=$(java -cp . FindJava)
