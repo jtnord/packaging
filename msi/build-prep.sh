@@ -23,7 +23,7 @@ unzip -p $D/tmp/core.jar windows-service/jenkins.exe > $D/tmp/jenkins.exe
 unzip -p $D/tmp/core.jar windows-service/jenkins.xml | sed -e "s|\bjenkins\b|${ARTIFACTNAME}|" | sed -e "s|8080|${PORT}|" > $D/tmp/jenkins.xm_
 # replace executable name to the bundled JRE
 sed -e 's|executable.*|executable>%BASE%\\jre\\bin\\java</executable>|' < $D/tmp/jenkins.xm_ > $D/tmp/jenkins.xml
-rm $D/tmp/core $D/tmp/jenkins.xm_ 
+rm $D/tmp/core.jar $D/tmp/jenkins.xm_ 
 
 cp ${PKCS12_FILE} $D/key.pkcs12
 cp ${PKCS12_PASSWORD_FILE} $D/key.password
