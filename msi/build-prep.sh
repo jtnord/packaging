@@ -13,7 +13,7 @@ $(<$bin/jenkins.wxs)
 EOF
 " 2> /dev/null
 
-cp -t $D/ $bin/FindJava.java $bin/build.bat $bin/jenkins.exe.config $bin/bootstrapper.xml 
+cp -t $D/ $bin/jre.xslt $bin/FindJava.java $bin/build.bat $bin/jenkins.exe.config $bin/bootstrapper.xml 
 
 # perform transalations of the files
 mkdir $D/tmp

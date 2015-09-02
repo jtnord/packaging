@@ -15,18 +15,16 @@ exit /B 1
 
 :OK
 
-REM capture JRE
-%JAVA_HOME%\bin\javac FindJava.java || exit /b 1
 REM Set by Jenkins or tooling to point to the JDK
 set JREDIR=%JAVA_HOME%\jre
 echo "JRE=%JREDIR%"
 REM this seems a little strange - using the JDK configured here to re-package...
-heat dir "%JREDIR%" -o jre.wxs -sfrag -sreg -nologo -srd -gg -cg JreComponents -dr JreDir -var var.JreDir  || exit /b 1
+heat dir "%JREDIR%" -o jre.wxs -t jre.xslt -sfrag -sreg -nologo -srd -gg -cg JreComponents -dr JreDir -var var.JreDir  || exit /b 1
 
 REM  pick up java.exe File ID
 set JavaExeId=$(grep java.exe jre.wxs | grep -o "fil[0-9A-F]*")
 
-candle -dJreDir="%JREDIR%" -dWAR="%war%" -dJavaExeId=%JavaExeId% -nologo -ext WixUIExtension -ext WixUtilExtension -ext WixFirewallExtension jenkins.wxs jre.wxs  || exit /b 1
+candle -dJreDir="%JREDIR%" -dWAR="%war%" -nologo -ext WixUIExtension -ext WixUtilExtension -ext WixFirewallExtension jenkins.wxs jre.wxs  || exit /b 1
 REM  '-sval' skips validation. without this, light somehow doesn't work on automated build environment
 REM  set to -dcl:low during debug and -dcl:high for release
 light -o %ARTIFACTNAME%.msi -sval -nologo -dcl:high -ext WixUIExtension -ext WixUtilExtension -ext WixFirewallExtension jenkins.wixobj jre.wixobj  || exit /b 1
