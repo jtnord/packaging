@@ -21,7 +21,7 @@
               <Directory Id='JreDir' Name='jre'/>
               <Component Id='Main' Guid='e4a652bf-c210-4a45-95c4-5dc875b4880b'>
                 <File Name="jenkins.exe" Source='tmp/jenkins.exe' KeyPath='yes' Id="JenkinsExe"/>
-                <fire:FirewallException Id="FwEx" File="\$(var.JavaExeId)" Name="Jenkins" Scope="any" IgnoreFailure="yes" />
+                <fire:FirewallException Id="FwEx" File="___JAVA___EXE___ID___" Name="Jenkins" Scope="any" IgnoreFailure="yes" />
                 <File Name="jenkins.xml" Source='tmp/jenkins.xml' DiskId='1' />
                 <File Name="jenkins.exe.config" Source='jenkins.exe.config' DiskId='1' />
                 <File Name="${ARTIFACTNAME}.war" Source='\$(var.WAR)' DiskId='1' />
