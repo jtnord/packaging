@@ -20,7 +20,8 @@ EOF
 " 2> /dev/null
 
 
-cp -t $D/ $bin/jre.xslt $bin/FindJava.java $bin/jenkins.exe.config $bin/bootstrapper.xml 
+cp -t $D/ $bin/jre.xslt $bin/FindJava.java $bin/jenkins.exe.config $bin/bootstrapper.xml
+cp "$WAR" $D/${ARTIFACTNAME}.war
 
 # perform transalations of the files
 mkdir $D/tmp
