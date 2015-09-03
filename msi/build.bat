@@ -31,7 +31,8 @@ REM  '-sval' skips validation. without this, light somehow doesn't work on autom
 REM  set to -dcl:low during debug and -dcl:high for release
 light -o %ARTIFACTNAME%.msi -sval -nologo -dcl:high -ext WixUIExtension -ext WixUtilExtension -ext WixFirewallExtension jenkins.wixobj jre.wixobj  || exit /b 1
 
-msbuild.exe /property:src=%ARTIFACTNAME%.msi "/property:ProductName=%PRODUCTNAME%" bootstrapper.xml  || exit /b 1
+REM use wix bundle if really needed....
+rem msbuild.exe /property:src=%ARTIFACTNAME%.msi "/property:ProductName=%PRODUCTNAME%" bootstrapper.xml  || exit /b 1
 
 signtool sign /v /f key.pkcs12 /p $(cat key.password) /t http://timestamp.verisign.com/scripts/timestamp.dll %ARTIFACTNAME%.msi setup.exe  || exit /b 1
 
