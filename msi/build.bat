@@ -4,13 +4,14 @@ setlocal
 
 REM - better to use cscript here....
 
-set war="%1"
-set ENCODEDVERSION="%2"
-set ARTIFACTNAME="%3"
-set PRODUCTNAME="%4"
-set PORT="%5"
+set war=${ARTIFACTNAME}.war
+set ENCODEDVERSION=UNUSED__DO_NO_USE
+set ARTIFACTNAME=${ARTIFACTNAME}
+set PRODUCTNAME=${PRODUCTNAME}
+set PORT=${PORT}
+
 if "%PORT%" NEQ "" GOTO :OK
-echo "build.bat path/to/jenkins.war version artifactName port"
+echo "build.bat need pre-procesing before being called."
 exit /B 1
 
 :OK

@@ -7,13 +7,20 @@ encodedv=$($bin/encode-version.rb $VERSION)
 D=./tempBuild   # temporary directory (in workspace so we can stash it)
 mkdir -p $D
 
-# replace variables in the wxs file
+# replace variables in the various files
 eval "cat > $D/jenkins.wxs <<EOF
 $(<$bin/jenkins.wxs)
 EOF
 " 2> /dev/null
 
-cp -t $D/ $bin/jre.xslt $bin/FindJava.java $bin/build.bat $bin/jenkins.exe.config $bin/bootstrapper.xml 
+# replace variables in the various files
+eval "cat > $D/build.bat <<EOF
+$(<$bin/build.bat)
+EOF
+" 2> /dev/null
+
+
+cp -t $D/ $bin/jre.xslt $bin/FindJava.java $bin/jenkins.exe.config $bin/bootstrapper.xml 
 
 # perform transalations of the files
 mkdir $D/tmp

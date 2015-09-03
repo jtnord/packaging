@@ -2,7 +2,7 @@
 export PATH=~/tools/native/wix:/cygdrive/c/Program\ Files/Windows\ Installer\ XML\ v3.5/bin:$PATH
 
 war="$1"
-ENCODEDVERSION="$2"
+ENCODEDVERSION=UNUSED
 ARTIFACTNAME="$3"
 PRODUCTNAME="$4"
 PORT="$5"
