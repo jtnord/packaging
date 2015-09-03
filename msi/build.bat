@@ -22,7 +22,8 @@ REM this seems a little strange - using the JDK configured here to re-package...
 heat dir "%JREDIR%" -o jre.wxs -t jre.xslt -sfrag -sreg -nologo -srd -gg -cg JreComponents -dr JreDir -var var.JreDir  || exit /b 1
 
 REM  pick up java.exe File ID
-set JavaExeId=$(grep java.exe jre.wxs | grep -o "fil[0-9A-F]*")
+REM set JavaExeId=$(grep java.exe jre.wxs | grep -o "fil[0-9A-F]*")
+REM it's now 100% stable... using the XSLT...
 
 candle -dJreDir="%JREDIR%" -dWAR="%war%" -nologo -ext WixUIExtension -ext WixUtilExtension -ext WixFirewallExtension jenkins.wxs jre.wxs  || exit /b 1
 REM  '-sval' skips validation. without this, light somehow doesn't work on automated build environment
