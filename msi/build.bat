@@ -34,7 +34,7 @@ light -o %ARTIFACTNAME%.msi -sval -nologo -dcl:high -ext WixUIExtension -ext Wix
 REM use wix bundle if really needed....
 rem msbuild.exe /property:src=%ARTIFACTNAME%.msi "/property:ProductName=%PRODUCTNAME%" bootstrapper.xml  || exit /b 1
 
-signtool sign /v /f key.pkcs12 /p $(cat key.password) /t http://timestamp.verisign.com/scripts/timestamp.dll %ARTIFACTNAME%.msi setup.exe  || exit /b 1
+signtool sign /v /f key.pkcs12 /p "%PASSWORD% /t http://timestamp.verisign.com/scripts/timestamp.dll %ARTIFACTNAME%.msi setup.exe  || exit /b 1
 
 REM - the files we need to bring back are ${ARTIFACTNAME}.msi setup.exe
 REM zip ${ARTIFACTNAME}-windows.zip ${ARTIFACTNAME}.msi setup.exe
