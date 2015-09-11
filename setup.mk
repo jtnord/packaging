@@ -11,7 +11,7 @@ export TARGET:=target
 export CLI:=${TARGET}/jenkins-cli.jar
 
 # where to generate MSI file?
-export MSI:=${TARGET}/msi/${ARTIFACTNAME}-${VERSION}.zip
+export MSI:=${TARGET}/msi/${ARTIFACTNAME}-${VERSION}.msi
 
 # where to generate OSX PKG file?
 export OSX=${TARGET}/osx/${ARTIFACTNAME}-${VERSION}.pkg
