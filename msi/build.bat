@@ -35,7 +35,7 @@ REM use wix bundle if really needed....
 REM msbuild.exe /property:src=%ARTIFACTNAME%.msi "/property:ProductName=%PRODUCTNAME%" bootstrapper2.xml || exit /b 1
 
 copy %ARTIFACTNAME%-%VERSION%.msi %ARTIFACTNAME%_presign.msi
-signtool sign /v /f key.pkcs12 /p "%PASSWORD%" /t http://timestamp.verisign.com/scripts/timestamp.dll %ARTIFACTNAME%-%VERSION%.msi || exit /b 1
+signtool sign /debug /v /f key.pkcs12 /p "%PASSWORD%" /t http://timestamp.verisign.com/scripts/timestamp.dll %ARTIFACTNAME%-%VERSION%.msi || exit /b 1
 
 REM - the files we need to bring back are ${ARTIFACTNAME}.msi setup.exe
 REM zip ${ARTIFACTNAME}-windows.zip ${ARTIFACTNAME}.msi setup.exe
