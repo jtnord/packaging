@@ -45,7 +45,7 @@ msi.publish: ${MSI}
 
 
 osx: ${OSX}
-${OSX}: ${WAR} ${CLI}  $(shell find osx -type f | sed -e 's/ /\\ /g')
+${OSX}: ${WAR} $(shell find osx -type f | sed -e 's/ /\\ /g')
 	./osx/build-prep.sh
 # workflow needs to do some cleanup to remove the sensitive files (build-post.sh)
 # and also call build.sh to do the build on mac.
