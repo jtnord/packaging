@@ -21,4 +21,4 @@ cp ${KEYCHAIN_FILE} $D/src/jenkins.keychain
 cp ${KEYCHAIN_PASSWORD_FILE} $D/src/jenkins.keychain.password
 
 echo '/bin/bash -ex build2.sh binary/${ARTIFACTNAME}.war $VERSION $ARTIFACTNAME "$PRODUCTNAME"' > $bin/build.sh
-chmod build.sh
+chmod +x build.sh
