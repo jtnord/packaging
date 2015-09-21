@@ -21,5 +21,5 @@ $BASE/bin/branding.sh $D/src
 cp ${KEYCHAIN_FILE} $D/src/jenkins.keychain
 cp ${KEYCHAIN_PASSWORD_FILE} $D/src/jenkins.keychain.password
 
-echo '/bin/bash -ex build2.sh binary/${ARTIFACTNAME}.war $VERSION $ARTIFACTNAME "$PRODUCTNAME"' > $D/src/build.sh
+echo /bin/bash -ex build2.sh binary/${ARTIFACTNAME}.war $VERSION $ARTIFACTNAME \"$PRODUCTNAME\" > $D/src/build.sh
 chmod +x $D/src/build.sh
