@@ -15,7 +15,9 @@ sudo rm -rf /var/log/@@ARTIFACTNAME@@
 sudo rm -f /etc/newsyslog.d/@@ARTIFACTNAME@@.conf
 sudo dscl . -delete /Users/@@ARTIFACTNAME@@
 sudo dscl . -delete /Groups/@@ARTIFACTNAME@@
-pkgutil --pkgs | grep 'org\.jenkins-ci\.' | xargs -n 1 sudo pkgutil --forget
+# the following is not quite correct as the '.'s in the "@@OSX_IDPREFIX@@" will match any character but 
+# if everyone is following the reverse dns then it will not clover any other packages.
+pkgutil --pkgs | grep '@@OSX_IDPREFIX@@\.' | xargs -n 1 sudo pkgutil --forget
 set +x
 echo
 echo "@@PRODUCTNAME@@ has been uninstalled."

@@ -89,7 +89,7 @@ _EOT_
 # Load and start the launch daemon
 /bin/launchctl load -w ${JENKINS_PLIST}
 
-# Wait for port 8080 to start accepting connections.
+# Wait for port @@PORT@@ to start accepting connections.
 # But don't wait forever.
 timeout=$(($(date +%s) + 60))
 while [ $(date +%s) -lt $timeout ] && ! curl -s http://localhost:@@PORT@@ >/dev/null; do
