@@ -37,8 +37,10 @@
 
     <choices-outline>
         <line choice="war"/>
-        <line choice="launchd_daemon"/>
-        <line choice="launchd_@@ARTIFACTNAME@@"/>
+        <line choice="launchd">
+          <line choice="launchd_daemon"/>
+          <line choice="launchd_@@ARTIFACTNAME@@"/>
+        </line>
         <line choice="support"/>
         <line choice="documentation"/>
     </choices-outline>
@@ -53,14 +55,22 @@
         start_selected="true">
       <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.war"/>
     </choice>
-    <choice
-        id="launchd_daemon"
-        enabled="!(choices.launchd_@@ARTIFACTNAME@@.selected)"
+   <choice
+        id="war"
+        enabled="false"
         visible="true"
-        title="Start at boot as &quot;daemon&quot;"
-        description="Install a launchd config file so @@PRODUCTNAME@@ will start at boot. @@PRODUCTNAME@@ will run as user &quot;daemon&quot;."
-        start_selected="false">
-      <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_daemon"/>
+        title="@@PRODUCTNAME@@"
+        description="The @@PRODUCTNAME@@ war file."
+        start_selected="true">
+      <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.war"/>
+    </choice>
+    <choice
+        id="launchd"
+        enabled="true"
+        visible="true"
+        title="Start at boot"
+        description="Select one of the options to allow jenkins to start at boot"
+        start_selected="true">
     </choice>
     <choice
         id="launchd_@@ARTIFACTNAME@@"
