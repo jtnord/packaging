@@ -36,16 +36,16 @@
              auth="root">documentation.pkg</pkg-ref>
 
     <choices-outline>
-        <line choice="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.war"/>
-        <line choice="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_daemon"/>
-        <line choice="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_@@ARTIFACTNAME@@"/>
-        <line choice="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.support"/>
-        <line choice="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.documentation"/>
+        <line choice="war"/>
+        <line choice="launchd_daemon"/>
+        <line choice="launchd_@@ARTIFACTNAME@@"/>
+        <line choice="support"/>
+        <line choice="documentation"/>
     </choices-outline>
 
     <!-- Define each choice above -->
     <choice
-        id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.war"
+        id="war"
         enabled="false"
         visible="true"
         title="@@PRODUCTNAME@@"
@@ -54,8 +54,8 @@
       <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.war"/>
     </choice>
     <choice
-        id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_daemon"
-        enabled="!(choices.'@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_@@ARTIFACTNAME@@'.selected)"
+        id="launchd_daemon"
+        enabled="!(choices.launchd_@@ARTIFACTNAME@@.selected)"
         visible="true"
         title="Start at boot as &quot;daemon&quot;"
         description="Install a launchd config file so @@PRODUCTNAME@@ will start at boot. @@PRODUCTNAME@@ will run as user &quot;daemon&quot;."
@@ -63,8 +63,8 @@
       <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_daemon"/>
     </choice>
     <choice
-        id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_@@ARTIFACTNAME@@"
-        enabled="!(choices.'@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_daemon'.selected)"
+        id="launchd_@@ARTIFACTNAME@@"
+        enabled="!(choices.launchd_daemon.selected)"
         visible="true"
         title="Start at boot as &quot;@@ARTIFACTNAME@@&quot;"
         description="Install a launchd config file so @@PRODUCTNAME@@ will start at boot. @@PRODUCTNAME@@ will run as user &quot;@@ARTIFACTNAME@@&quot;."
@@ -72,7 +72,7 @@
       <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_@@ARTIFACTNAME@@"/>
     </choice>
     <choice
-        id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.support"
+        id="support"
         enabled="false"
         visible="true"
         title="@@PRODUCTNAME@@ Support Files"
@@ -81,7 +81,7 @@
       <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.support"/>
     </choice>
     <choice
-        id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.documentation"
+        id="documentation"
         visible="true"
         title="Documentation"
         description="@@PRODUCTNAME@@ documentation"
