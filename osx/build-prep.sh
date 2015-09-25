@@ -1,5 +1,10 @@
 #!/bin/bash -ex
 
+echo "dumping system environment"
+env
+echo "done"
+
+
 bin=$(dirname $0)
 D=./tmp/osx
 rm -fr $D
