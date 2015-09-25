@@ -5,12 +5,12 @@
     <domains enable_anywhere="false" enable_currentUserHome="false" enable_localSystem="true"/>
     <options customize="allow" require-scripts="true" rootVolumeOnly="true" />
 
-    <background file="banner-200.png" mime-type="image/png" />
+    <background file="banner-200.png" mime-type="image/png" alignment="bottomleft"/>
     <!-- Define documents displayed at various steps -->
     <welcome    file="welcome.html"    mime-type="text/html" />
     <license    file="license.html"    mime-type="text/html" />
-    <conclusion file="installing.html" mime-type="text/html" />
-    <conclusion file="conclusion.html" mime-type="text/html" />
+    <!--<readme file="installing.html" mime-type="text/html" />-->
+    <!--<conclusion file="conclusion.html" mime-type="text/html" />-->
 
 
     <!-- List all component packages -->
