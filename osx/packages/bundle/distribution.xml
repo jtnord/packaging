@@ -2,15 +2,17 @@
 <installer-gui-script minSpecVersion="2">
     <title>@@PRODUCTNAME@@</title>
     <organization>@@OSX_IDPREFIX@@</organization>
-    <domains enable_anywhere="false" enable_currentUserHome="false" enable_localSystem="true"/>
-    <options customize="allow" require-scripts="true" rootVolumeOnly="true" />
-
+    
     <background file="banner-200.png" mime-type="image/png" alignment="bottomleft"/>
     <!-- Define documents displayed at various steps -->
     <welcome    file="welcome.html"    mime-type="text/html" />
     <license    file="license.html"    mime-type="text/html" />
     <!--<readme file="installing.html" mime-type="text/html" />-->
     <!--<conclusion file="conclusion.html" mime-type="text/html" />-->
+
+    <domains enable_anywhere="false" enable_currentUserHome="false" enable_localSystem="true"/>
+    <options customize="allow" require-scripts="true" rootVolumeOnly="true" />
+
 
     <allowed-os-versions>
         <os-version min="10.6.6" />
@@ -53,6 +55,7 @@
     </choice>
     <choice
         id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_daemon"
+        enabled="!(choices.'@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_@@ARTIFACTNAME@@'.selected)"
         visible="true"
         title="Start at boot as &quot;daemon&quot;"
         description="Install a launchd config file so @@PRODUCTNAME@@ will start at boot. @@PRODUCTNAME@@ will run as user &quot;daemon&quot;."
@@ -61,6 +64,7 @@
     </choice>
     <choice
         id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_@@ARTIFACTNAME@@"
+        enabled="!(choices.'@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_daemon'.selected)"
         visible="true"
         title="Start at boot as &quot;@@ARTIFACTNAME@@&quot;"
         description="Install a launchd config file so @@PRODUCTNAME@@ will start at boot. @@PRODUCTNAME@@ will run as user &quot;@@ARTIFACTNAME@@&quot;."
@@ -69,6 +73,7 @@
     </choice>
     <choice
         id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.support"
+        enabled="false"
         visible="true"
         title="@@PRODUCTNAME@@ Support Files"
         description="Contains files required by the Launch Daemon"
