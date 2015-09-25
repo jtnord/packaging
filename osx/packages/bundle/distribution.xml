@@ -88,7 +88,7 @@
         title="@@PRODUCTNAME@@ Support Files"
         description="Contains files required by the Launch Daemon"
         start_selected="true"
-        selected="(!choices.support.enabled && choices.launchd.selected) || (choices.support.enabled && choices.support.selected)">
+        selected="(!choices.support.enabled &amp;&amp; choices.launchd.selected) || (choices.support.enabled &amp;&amp; choices.support.selected)">
       <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.support"/>
     </choice>
     <choice
