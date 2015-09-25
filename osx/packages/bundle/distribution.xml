@@ -73,6 +73,15 @@
         start_selected="true">
     </choice>
     <choice
+        id="launchd_daemon"
+        enabled="!(choices.launchd_daemon.selected)"
+        visible="true"
+        title="Start at boot as &quot;daemon&quot;"
+        description="Install a launchd config file so @@PRODUCTNAME@@ will start at boot. @@PRODUCTNAME@@ will run as user &quot;@@ARTIFACTNAME@@&quot;."
+        start_selected="true">
+      <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_daemon"/>
+    </choice>
+    <choice
         id="launchd_@@ARTIFACTNAME@@"
         enabled="!(choices.launchd_daemon.selected)"
         visible="true"
@@ -83,11 +92,12 @@
     </choice>
     <choice
         id="support"
-        enabled="false"
+        enabled="!choices.launchd.selected"
         visible="true"
         title="@@PRODUCTNAME@@ Support Files"
         description="Contains files required by the Launch Daemon"
-        start_selected="true">
+        start_selected="true"
+        selected="(!choices.support.enabled && choices.launchd.selected) || (choices.support.enabled && choices.support.selected)">
       <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.support"/>
     </choice>
     <choice
