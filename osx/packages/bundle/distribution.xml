@@ -55,15 +55,6 @@
         start_selected="true">
       <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.war"/>
     </choice>
-   <choice
-        id="war"
-        enabled="false"
-        visible="true"
-        title="@@PRODUCTNAME@@"
-        description="The @@PRODUCTNAME@@ war file."
-        start_selected="true">
-      <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.war"/>
-    </choice>
     <choice
         id="launchd"
         enabled="true"
@@ -92,7 +83,7 @@
     </choice>
     <choice
         id="support"
-        enabled="!choices.launchd.selected"
+        enabled="!(choices.launchd.selected)"
         visible="true"
         title="@@PRODUCTNAME@@ Support Files"
         description="Contains files required by the Launch Daemon"
