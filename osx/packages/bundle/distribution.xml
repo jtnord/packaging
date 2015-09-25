@@ -11,7 +11,7 @@
     <!-- List all component packages -->
     <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.war"
              version="0"
-             auth="root">jenkins.pkg</pkg-ref>
+             auth="root">war.pkg</pkg-ref>
     <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_daemon"
              version="0"
              auth="root">launchd_daemon.pkg</pkg-ref>
@@ -24,10 +24,11 @@
     <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.documentation"
              version="0"
              auth="root">documentation.pkg</pkg-ref>
+<!--
     <choices-outline>
         <line choice="@@OSX_IDPREFIX@@.launchd_daemon"/>
     </choices-outline>
-    <!-- Define each choice above -->
+    <!-//- Define each choice above -//->
     <choice
         id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_daemon"
         visible="false"
@@ -36,4 +37,5 @@
         start_selected="true">
       <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_daemon"/>
     </choice>
+-->
 </installer-gui-script>
