@@ -15,9 +15,9 @@
     <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_daemon"
              version="0"
              auth="root">launchd_daemon.pkg</pkg-ref>
-    <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_jenkins"
+    <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_@@ARTIFACTNAME@@"
              version="0"
-             auth="root">launchd_jenkins.pkg</pkg-ref>
+             auth="root">launchd_@@ARTIFACTNAME@@.pkg</pkg-ref>
     <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.support"
              version="0"
              auth="root">support.pkg</pkg-ref>
