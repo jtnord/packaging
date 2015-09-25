@@ -2,12 +2,17 @@
 <installer-gui-script minSpecVersion="1">
     <title>@@PRODUCTNAME@@</title>
     <organization>@@OSX_IDPREFIX@@</organization>
-    <domains enable_localSystem="true"/>
-    <options customize="never" require-scripts="true" rootVolumeOnly="true" />
+    <domains enable_anywhere="false" enable_currentUserHome="false" enable_localSystem="true"/>
+    <options customize="allow" require-scripts="true" rootVolumeOnly="true" />
+
+    <background file="banner-200.png" mime-type="image/png" />
     <!-- Define documents displayed at various steps -->
     <welcome    file="welcome.html"    mime-type="text/html" />
     <license    file="license.html"    mime-type="text/html" />
+    <conclusion file="installing.html" mime-type="text/html" />
     <conclusion file="conclusion.html" mime-type="text/html" />
+
+
     <!-- List all component packages -->
     <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.war"
              version="0"
@@ -24,18 +29,56 @@
     <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.documentation"
              version="0"
              auth="root">documentation.pkg</pkg-ref>
-<!--
+
     <choices-outline>
-        <line choice="@@OSX_IDPREFIX@@.launchd_daemon"/>
+        <line choice="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.war"/>
+        <line choice="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_daemon"/>
+        <line choice="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_@@ARTIFACTNAME@@"/>
+        <line choice="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.support"/>
+        <line choice="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.documentation"/>
     </choices-outline>
-    <!-//- Define each choice above -//->
+
+    <!-- Define each choice above -->
+    <choice
+        id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.war"
+        enabled="false"
+        visible="true"
+        title="@@PRODUCTNAME@@"
+        description="The @@PRODUCTNAME@@ war file."
+        start_selected="true">
+      <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.war"/>
+    </choice>
     <choice
         id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_daemon"
-        visible="false"
-        title="some daemon"
-        description="The daemon"
-        start_selected="true">
+        visible="true"
+        title="Start at boot as &quot;daemon&quot;"
+        description="Install a launchd config file so @@PRODUCTNAME@@ will start at boot. @@PRODUCTNAME@@ will run as user &quot;daemon&quot;."
+        start_selected="false">
       <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_daemon"/>
     </choice>
--->
+    <choice
+        id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_@@ARTIFACTNAME@@"
+        visible="true"
+        title="Start at boot as &quot;@@ARTIFACTNAME@@&quot;"
+        description="Install a launchd config file so @@PRODUCTNAME@@ will start at boot. @@PRODUCTNAME@@ will run as user &quot;@@ARTIFACTNAME@@&quot;."
+        start_selected="true">
+      <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_@@ARTIFACTNAME@@"/>
+    </choice>
+    <choice
+        id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.support"
+        visible="true"
+        title="@@PRODUCTNAME@@ Support Files"
+        description="Contains files required by the Launch Daemon"
+        start_selected="true">
+      <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.support"/>
+    </choice>
+    <choice
+        id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.documentation"
+        visible="true"
+        title="Documentation"
+        description="@@PRODUCTNAME@@ documentation"
+        start_selected="true">
+      <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.documentation"/>
+    </choice>
+
 </installer-gui-script>
