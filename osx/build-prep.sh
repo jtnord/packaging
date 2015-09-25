@@ -14,6 +14,8 @@ pushd $D/src/packages
     mv default.plist $OSX_IDPREFIX.plist
   popd
 popd
+echo $VERSION
+
 $BASE/bin/branding.sh $D/src
 
 cp ${KEYCHAIN_FILE} $D/src/jenkins.keychain
