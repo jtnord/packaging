@@ -32,4 +32,4 @@ cp ${KEYCHAIN_FILE} $D/src/jenkins.keychain
 cp ${KEYCHAIN_PASSWORD_FILE} $D/src/jenkins.keychain.password
 mkdir -p $D/src/war/app/
 # disabled for quicker testing
-#cp ${WAR} $D/src/war/app/${ARTIFACTNAME}.war
+cp ${WAR} $D/src/war/app/${ARTIFACTNAME}.war

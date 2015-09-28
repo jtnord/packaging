@@ -2,12 +2,6 @@
 
 rm -fr build
 
-# just to enable quicker testing..
-mkdir packages/war/app
-cp ~/jenkins.war packages/war/app/@@ARTIFACTNAME@@.war
-## end quick testing hack
-
-
 # the individual packages
 mkdir -p build/components
 

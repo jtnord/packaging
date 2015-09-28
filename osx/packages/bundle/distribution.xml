@@ -68,7 +68,7 @@
         enabled="!(choices.launchd_daemon.selected)"
         visible="true"
         title="Start at boot as &quot;daemon&quot;"
-        description="Install a launchd config file so @@PRODUCTNAME@@ will start at boot. @@PRODUCTNAME@@ will run as user &quot;@@ARTIFACTNAME@@&quot;."
+        description="Install a launchd config file so @@PRODUCTNAME@@ will start at boot. @@PRODUCTNAME@@ will run as user &quot;daemon&quot;."
         start_selected="true">
       <pkg-ref id="@@OSX_IDPREFIX@@.@@ARTIFACTNAME@@.launchd_daemon"/>
     </choice>
