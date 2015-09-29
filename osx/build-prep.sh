@@ -1,10 +1,5 @@
 #!/bin/bash -ex
 
-echo "dumping system environment"
-env
-echo "done"
-
-
 bin=$(dirname $0)
 D=./tmp/osx
 rm -fr $D
@@ -28,8 +23,9 @@ popd
 
 $BASE/bin/branding.sh $D/src
 
+mkdir -p $D/src/packages/war/app
+cp ${WAR} $D/src/packages/war/app/${ARTIFACTNAME}.war
+
 cp ${KEYCHAIN_FILE} $D/src/jenkins.keychain
+#TODO - password should come from the environment.
 cp ${KEYCHAIN_PASSWORD_FILE} $D/src/jenkins.keychain.password
-mkdir -p $D/src/war/app/
-# disabled for quicker testing
-cp ${WAR} $D/src/war/app/${ARTIFACTNAME}.war
