@@ -14,4 +14,4 @@ export PKCS12_PASSWORD_FILE:=$(CREDENTIAL_DIR)test.pkcs12.password.txt
 export KEYCHAIN_FILE         :=${CREDENTIAL_DIR}test.keychain
 export KEYCHAIN_PASSWORD_FILE:=${CREDENTIAL_DIR}test.keychain.password.txt
 
-export CREDENTIAL_ID=jenkinsci/packaging/test
+export CREDENTIAL_ID=packaging-test
