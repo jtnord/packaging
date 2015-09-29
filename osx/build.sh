@@ -38,10 +38,33 @@ pkgbuild --root packages/documentation/app \
          --install-location /Library/Documentation/@@CAMELARTIFACTNAME@@ \
          build/components/documentation.pkg
 
+## Prep the Signing
+
+
+# Create a temporary keychain
+security create-keychain -p $PASSWORD `pwd`/installer.keychain
+# import the certificates into the keychain
+security import key.pkcs12 -k `pwd`/installer.keychain -t agg -f pkcs12 -A -P $PASSWORD
+# unluck the keychain so we can use it
+security unlock-keychain -p $PASSED `pwd`/installer.keychain
+# We need to know the identity of the certificate to use
+SIGN_IDENTITY="$(security find-identity $PWD/installer.keychain | grep "1)" | head -n1 | cut -f4 -d' ')"
+
+
 # the main installer.
 mkdir -p build/installer
+# we always want to delete the keychain
+set +e
 productbuild --distribution packages/bundle/distribution.xml \
              --package-path build/components/ \
              --resources packages/bundle/resources/ \
              --version @@VERSION@@ \
+             --sign ${SIGN_IDENTITY} \
+             --keychain `pwd`/installer.keychain \
+             --timestamp \
              build/installer/@@ARTIFACTNAME@@.pkg
+EXIT_CODE=$?
+set -e
+security delete-keychain `pwd`/installer.keychain
+exit ${EXIT_CODE}
+

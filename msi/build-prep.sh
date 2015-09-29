@@ -1,5 +1,5 @@
 #!/bin/bash -ex
-# this script runs on the release machine to submit the actual msi build to a Windows machine
+# this script runs on the release machine to prepare the files for submission to a Windows machine
 
 bin=$(dirname $0)
 encodedv=$($bin/encode-version.rb $VERSION)

@@ -1,4 +1,6 @@
 #!/bin/bash -ex
+# this script runs on the release machine to prepare the files for submission to an osx machine
+
 
 bin=$(dirname $0)
 D=./tmp/osx
@@ -26,6 +28,6 @@ $BASE/bin/branding.sh $D/src
 mkdir -p $D/src/packages/war/app
 cp ${WAR} $D/src/packages/war/app/${ARTIFACTNAME}.war
 
-cp ${KEYCHAIN_FILE} $D/src/jenkins.keychain
-#TODO - password should come from the environment.
-cp ${KEYCHAIN_PASSWORD_FILE} $D/src/jenkins.keychain.password
+cp ${PKCS12_FILE} $D/installer.pkcs12
+#TODO - password should come from the environment. (injected via credentials when running in workflow)
+cp ${PKCS12_PASSWORD_FILE} $D/installer.password
