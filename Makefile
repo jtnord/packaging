@@ -17,6 +17,10 @@ include ./setup.mk
 clean:
 	rm -rf ${TARGET}
 
+credential:
+# CI system needs to know the credential to use so this target serves that purpose.
+	$(info CREDENTIAL_ID=${CREDENTIAL_ID})
+
 setup:
 	bash -ex -c 'for f in */setup.sh; do $$f; done'
 
@@ -37,8 +41,8 @@ war.publish: ${WAR}
 msi: ${MSI}
 ${MSI}: ${WAR} $(shell find msi -type f)
 	./msi/build-prep.sh
-	# workflow needs to do some cleanup to remove the sensitive files (build-post.sh)
-	# and also call build.bat to do the build on windows.
+# workflow needs to do some cleanup to remove the sensitive files (build-post.sh)
+# and also call build.bat to do the build on windows.
 msi.publish: ${MSI}
 	./msi/publish.sh
 

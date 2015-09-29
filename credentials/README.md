@@ -10,6 +10,9 @@ To correctly sign all the supported formats, you need your keys in the following
 
 `test.mk` contains the variable definitions to point to those files.
 
+To run locally for testing the system environment variable `PASSWORD` should be set to the password that proects your keys.
+For the CI system the environment variable will be auto injected based on the CREDENTIAL_ID specified.
+
 ## Creating your own GPG key
 Export your public key & private key
 
