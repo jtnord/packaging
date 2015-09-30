@@ -44,7 +44,7 @@ pkgbuild --root packages/documentation/app \
 # Create a temporary keychain
 security create-keychain -p $PASSWORD `pwd`/installer.keychain
 # import the certificates into the keychain
-security import key.pkcs12 -k `pwd`/installer.keychain -t agg -f pkcs12 -A -P $PASSWORD
+security import installer.pkcs12 -k `pwd`/installer.keychain -t agg -f pkcs12 -A -P $PASSWORD
 # unluck the keychain so we can use it
 security unlock-keychain -p $PASSED `pwd`/installer.keychain
 # We need to know the identity of the certificate to use
