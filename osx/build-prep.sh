@@ -28,6 +28,4 @@ $BASE/bin/branding.sh $D/src
 mkdir -p $D/src/packages/war/app
 #cp ${WAR} $D/src/packages/war/app/${ARTIFACTNAME}.war
 
-cp ${PKCS12_FILE} $D/src/installer.pkcs12
-#TODO - password should come from the environment. (injected via credentials when running in workflow)
-cp ${PKCS12_PASSWORD_FILE} $D/src/installer.password
+cp ${KEYCHAIN_FILE} $D/src/installer.keychain

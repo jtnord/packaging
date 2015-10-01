@@ -47,15 +47,9 @@ pkgbuild --root packages/documentation/app \
 ## Prep the Signing
 
 
-# Create a temporary keychain
-security create-keychain -p $PASSWORD `pwd`/installer.keychain
-# import the certificates into the keychain
-security import installer.pkcs12 -k `pwd`/installer.keychain -t agg -f pkcs12 -A -P $PASSWORD
-# unluck the keychain so we can use it
 security unlock-keychain -p $PASSWORD `pwd`/installer.keychain
 # We need to know the identity of the certificate to use
 SIGN_IDENTITY="$(security find-identity $PWD/installer.keychain | grep "1)" | head -n1 | cut -f4 -d' ')"
-
 
 # the main installer.
 mkdir -p build/installer
