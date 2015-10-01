@@ -26,6 +26,6 @@ popd
 $BASE/bin/branding.sh $D/src
 
 mkdir -p $D/src/packages/war/app
-#cp ${WAR} $D/src/packages/war/app/${ARTIFACTNAME}.war
+cp ${WAR} $D/src/packages/war/app/${ARTIFACTNAME}.war
 
 cp ${KEYCHAIN_FILE} $D/src/installer.keychain
