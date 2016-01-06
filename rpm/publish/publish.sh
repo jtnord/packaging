@@ -2,7 +2,7 @@
 
 base=$(dirname $0)
 
-ssh $PKGSERVER mkdir -p "$RPMDIR/"
+ssh $PKGSERVER mkdir -p "'$RPMDIR/'"
 rsync -avz "$RPM" "$PKGSERVER:$RPMDIR/"
 
 D=/tmp/$$
@@ -29,6 +29,6 @@ popd
 
 # generate index on the server
 # server needs 'createrepo' pacakge
-ssh $PKGSERVER createrepo --update -o "$RPM_WEBDIR" "$RPMDIR/"
+ssh $PKGSERVER createrepo --update -o "'$RPM_WEBDIR'" "'$RPMDIR/'"
 
 rm -rf $D
