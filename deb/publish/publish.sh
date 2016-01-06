@@ -1,7 +1,7 @@
 #!/bin/bash -ex
 bin="$(dirname $0)"
 
-ssh $PKGSERVER mkdir -p "$DEBDIR/"
+ssh $PKGSERVER mkdir -p "'$DEBDIR/'"
 rsync -avz "${DEB}" "$PKGSERVER:$DEBDIR/"
 
 D=/tmp/$$

@@ -2,7 +2,7 @@
 
 base=$(dirname $0)
 
-ssh $PKGSERVER mkdir -p "$SUSEDIR/"
+ssh $PKGSERVER mkdir -p "'$SUSEDIR/"'
 rsync -avz "${SUSE}" "$PKGSERVER:$SUSEDIR/"
 
 D=/tmp/$$
@@ -21,7 +21,7 @@ pushd $D
 
   # generate index on the server
   # server needs 'createrepo' pacakge
-  ssh $PKGSERVER createrepo --update -o "$SUSE_WEBDIR $SUSEDIR/"
+  ssh $PKGSERVER createrepo --update -o "'$SUSE_WEBDIR'" "'$SUSEDIR/'"
 
   # sign the final artifact and upload the signature
   scp "$PKGSERVER:$SUSE_WEBDIR/repodata/repomd.xml" repodata/
