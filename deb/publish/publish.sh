@@ -25,6 +25,8 @@ popd
 
 # merge the result
 pushd $D/binary
+  which mvn
+  mvn --version
   mvn --show-version --debug org.kohsuke:apt-ftparchive-merge:1.4:merge -Durl="$DEB_URL/binary/" -Dout=../merged
 popd
 
