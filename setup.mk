@@ -29,7 +29,7 @@ export SUSE=${TARGET}/suse/${ARTIFACTNAME}-${VERSION}-1.2.noarch.rpm
 export BASE:=$(CURDIR)
 
 # read license file and do reformatting for proper display
-export LICENSE_TEXT:=$(shell cat "${LICENSE_FILE)")
+export LICENSE_TEXT:=$(shell cat "$(LICENSE_FILE)")
 export LICENSE_TEXT_COLUMN:=$(shell fold -w 78 -s "$(LICENSE_FILE)")  # Format to 80 characters
 export LICENSE_TEXT_COMMENTED:=$(shell echo $(LICENSE_TEXT_COLUMN) | sed  's!^!\# !g' )
 
