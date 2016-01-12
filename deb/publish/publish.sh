@@ -2,7 +2,7 @@
 bin="$(dirname $0)"
 
 ssh $PKGSERVER mkdir -p "'$DEBDIR/'"
-rsync -avz "${DEB}" "'$PKGSERVER:$DEBDIR/'"
+rsync -avz "${DEB}" "$PKGSERVER:$DEBDIR/"
 
 D=/tmp/$$
 mkdir -p $D/binary $D/contents
@@ -43,6 +43,6 @@ gpg --batch --no-use-agent --no-default-keyring --keyring "$GPG_KEYRING" --secre
 
 cp $D/binary/Packages.* $D/binary/Release $D/binary/Release.gpg $D/binary/Contents.gz $D/contents/binary
 
-rsync -avz $D/contents/ "$PKGSERVER:'$DEB_WEBDIR/'"
+rsync -avz $D/contents/ "$PKGSERVER:$DEB_WEBDIR/"
 
 rm -rf $D
