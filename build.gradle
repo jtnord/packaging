@@ -1,0 +1,186 @@
+
+/**
+ * If the war is not defined bail out.
+ */
+if (!project.hasProperty('WAR')) {
+  throw new GradleException('Required variable WAR must point to the jenkins.war file you are packaging')
+}
+
+/**
+ * a list of all the parameters that can be defined to change the product/signing/ditribution
+ */
+ext.BRAND = project.hasProperty('BRAND') ? "${BRAND}" : './branding/test.groovy'
+ext.BUILDENV = project.hasProperty('BUILDENV') ? "${BUILDENV}" : "./env/test.groovy"
+ext.CREDENTIAL = project.hasProperty('CREDENTIAL') ? "${CREDENTIAL}" : "./credentials/test.groovy"
+
+apply from: "${BRAND}"
+apply from: "${BUILDENV}"
+apply from: "${CREDENTIAL}"
+apply from: "./setup.groovy"
+
+/**
+ * get a map of the variables used for branding and their values
+ */
+def getEnvironmentVariablesForBranding() {
+  def envMap = [:]
+  envMap['PRODUCTNAME'] = PRODUCTNAME
+  envMap['ARTIFACTNAME'] = ARTIFACTNAME
+  envMap['CAMELARTIFACTNAME'] = CAMELARTIFACTNAME
+  envMap['VENDOR'] = VENDOR
+  envMap['SUMMARY'] = SUMMARY
+  envMap['PORT'] = PORT
+  envMap['MSI_PRODUCTCODE'] = MSI_PRODUCTCODE
+  envMap['OSX_IDPREFIX'] = OSX_IDPREFIX
+  envMap['AUTHOR'] = AUTHOR
+  envMap['LICENSE'] = LICENSE
+  envMap['HOMEPAGE'] = HOMEPAGE
+  envMap['CHANGELOG_PAGE'] = CHANGELOG_PAGE
+  envMap['RELEASELINE'] = RELEASELINE
+  envMap['RPM_URL'] = RPM_URL
+  envMap['SUSE_URL'] = SUSE_URL
+  envMap['DEB_URL'] = DEB_URL
+  envMap['LICENSE_TEXT_DEB'] = LICENSE_TEXT_DEB
+  envMap['LICENSE_TEXT'] = LICENSE_TEXT
+  envMap['LICENSE_TEXT_COMMENTED'] = LICENSE_TEXT_COMMENTED
+  envMap
+}
+
+def getEnvironmentVariablesForScripts() {
+  def envMap = [:]
+  envMap['OVERLAY_CONTENTS'] = OVERLAY_CONTENTS
+  envMap['TARGET'] = TARGET
+  envMap['VERSION'] = VERSION
+  envMap
+}
+
+task dumpVars() << {
+  println "Dumping banding variables"
+  println ""
+  getEnvironmentVariablesForBranding().each { entry ->
+     println "${entry.key}=${entry.value}"
+  }
+  println ""
+  println ""
+  println "---------------------------------"
+  println "Dumping shell tooling variables"
+  println ""
+  getEnvironmentVariablesForScripts().each { entry ->
+     println "${entry.key}=${entry.value}"
+  }
+  println ""
+  println ""
+  println "---------------------------------"
+}
+
+/**
+ * ported from Makefile
+ * // TODO and remove distfork to just use workflow/pipeline
+ */
+
+/**
+ * clean the build directory
+ */
+task clean(type: Delete) << {
+	delete TARGET
+}
+
+/**
+ // TODO needs to directory
+ */
+task setup(type:Exec) << {
+	commandLine = 'bash', '-ex', '-c', 'for f in */setup.sh; do $f; done'
+}
+
+task package(dependsOn: ['war', 'msi' 'osx' 'deb' 'rpm' 'suse']) << {
+}
+
+task publish(dependsOn: ['war.publish', 'msi.publish' 'osx.publish' 'deb.publish' 'rpm.publish' 'suse.publish']) << {
+}
+
+task test(dependsOn: ['deb.test', 'rpm.test', 'suse.test']) << {
+}
+
+docker.images:
+	docker build -t jenkins-packaging-builder:$PACKAGE_BUILDER_VERSION ./docker
+	bash ./docker/build-sudo-images.sh
+
+// See ./docker/README.md for how to use the docker containers to run a build in docker
+
+docker.test: docker.images
+	bash ./installtests/run_tests.sh
+
+task XXX() << {
+    inputs.property "abc", abc
+    outputs.file = CLI
+    ant.get(src: "${JENKINS_URL}jnlpJars/jenkins-cli.jar", dest: CLI)
+  }
+
+war: ${WAR}
+war.publish: ${WAR}
+	ssh ${PKGSERVER} mkdir -p "'${WARDIR}/${VERSION}/'"
+	rsync -avz "${WAR}" "${PKGSERVER}:${WARDIR}/${VERSION}/${ARTIFACTNAME}.war"
+
+
+
+msi: ${MSI}
+${MSI}: ${WAR} ${CLI} $(shell find msi -type f)
+	./msi/build-on-jenkins.sh
+msi.publish: ${MSI}
+	./msi/publish.sh
+
+
+
+osx: ${OSX}
+${OSX}: ${WAR} ${CLI}  $(shell find osx -type f | sed -e 's/ /\\ /g')
+	./osx/build-on-jenkins.sh
+osx.publish: ${OSX}
+	./osx/publish.sh
+
+
+
+deb: ${DEB}
+${DEB}: ${WAR} $(shell find deb/build -type f)
+	./deb/build/build.sh
+deb.publish: ${DEB} $(shell find deb/publish -type f)
+	./deb/publish/publish.sh
+
+
+
+rpm: ${RPM}
+${RPM}: ${WAR}  $(shell find rpm/build -type f)
+	./rpm/build/build.sh
+rpm.publish: ${RPM} $(shell find rpm/publish -type f)
+	./rpm/publish/publish.sh
+
+suse: ${SUSE}
+${SUSE}: ${WAR}  $(shell find suse/build -type f)
+	./suse/build/build.sh
+suse.publish: ${SUSE} $(shell find suse/publish -type f)
+	./suse/publish/publish.sh
+
+
+
+task CLI() << {
+  inputs.property "JENKINS_URL", JENKINS_URL
+  outputs.file = CLI
+  ant.get(src: "${JENKINS_URL}jnlpJars/jenkins-cli.jar", dest: CLI)
+}
+
+
+test.local.setup:
+	# start a test Apache server that acts as package server
+	# we'll refer to this as 'test.pkg.jenkins-ci.org'
+	@mkdir -p ${TESTDIR} || true
+	docker run --rm -t -i -p 9200:80 -v ${TESTDIR}:/var/www/html fedora/apache
+%.test.up:
+	# run this target for to set up the test target VM
+	cd test; vagrant up --provision-with "" $*
+	cd test; vagrant provision --provision-with "shell" $*; sleep 5
+%.test.run:
+	# run this target to just re-run the test against the currently running VM
+	cd test; vagrant provision --provision-with serverspec $*
+%.test.destroy:
+	# run tis target to undo '%.test.up'
+	cd test; vagrant destroy -f $*
+%.test: %.test.up %.test.run %.test.destroy
+	# run all the test goals in the order
