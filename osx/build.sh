@@ -48,6 +48,7 @@ cp -R * /tmp/test
 	--doc "${PACKAGEMAKER_DOC}" \
 	--out "unsigned-${PKG_NAME}" \
 	--version "${VERSION}" \
+	--verbose \
 	--title "${PKG_TITLE}"
 
 # sign the package. the 'security' tool needs keychain file to be specified in full path
